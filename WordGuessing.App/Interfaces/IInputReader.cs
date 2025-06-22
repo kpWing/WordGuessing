@@ -1,6 +1,6 @@
 ﻿namespace WordGuessing.App.Interfaces
 {
-    internal interface IInputReader
+    public interface IInputReader
     {
         char Read(string message);
     }

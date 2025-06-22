@@ -9,7 +9,8 @@ internal class Program
         var processor = new GameProcessor(
             5
             , new ConsoleWriter()
-            , new ConsoleReader());
+            , new ConsoleReader()
+            , new WordCreator());
         processor.StartGame();
 
         Console.ReadKey();

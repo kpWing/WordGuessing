@@ -1,8 +1,9 @@
-﻿using WordGuessing.App.Models;
+﻿using WordGuessing.App.Interfaces;
+using WordGuessing.App.Models;
 
 namespace WordGuessing.App.Application
 {
-    public class WordCreator
+    public class WordCreator : IWordCreator
     {
         public TargetWord Create(string value)
         {

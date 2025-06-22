@@ -4,22 +4,22 @@ using WordGuessing.App.Models;
 
 namespace WordGuessing.App.Application
 {
-    internal class GameProcessor
+    public class GameProcessor
     {
-        //ユーザインタラクションに関する機能はコンソール以外のインターフェースへの差し替えを考慮して、外部から注入
         private readonly IMessageWriter _messageWriter;
         private readonly IInputReader _reader;
-
-        private readonly WordCreator _wordCreator = new WordCreator();
+        private readonly IWordCreator _wordCreator;
 
         public int MaxFailableCount { get; }
         public GameProcessor(int failableCount
             , IMessageWriter messageWriter
-            , IInputReader reader)
+            , IInputReader reader
+            , IWordCreator wordCreator)
         {
             MaxFailableCount = failableCount;
             _messageWriter = messageWriter;
             _reader = reader;
+            _wordCreator = wordCreator;
         }
 
         public void StartGame()
@@ -71,6 +71,7 @@ namespace WordGuessing.App.Application
                 }
                 else if (currentFailableCount == 0)
                 {
+                    WriteQuestion(currentOutputWord, currentFailableCount, inputedKeys);
                     _messageWriter.WriteLineFailedMessage("ゲームオーバーです。");
                     _messageWriter.WriteLineFailedMessage($"正解: {word.Value}");
                     _messageWriter.WriteLineMessage("");
